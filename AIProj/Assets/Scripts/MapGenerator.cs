@@ -41,7 +41,8 @@ public class MapGenerator : MonoBehaviour
    
     int typeLength = 5;
 
-    Djikstra pathfinder;
+    // Djikstra pathfinder;
+    D2 pathfinder;
 
     // Use this for initialization
     void Start()
@@ -59,7 +60,8 @@ public class MapGenerator : MonoBehaviour
         GenerateTileMap();
         InitializeData();
 
-        pathfinder = new Djikstra();
+        // pathfinder = new Djikstra();
+        pathfinder = new D2();
 
         mapScale = Mathf.Max(width, height);
         Camera.main.transform.position = new Vector3(width / 2f - 0.5f, mapScale, height / 2f - 0.5f);

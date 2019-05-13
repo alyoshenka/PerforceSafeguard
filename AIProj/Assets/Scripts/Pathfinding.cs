@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 // pathfinding node
 public class Node : IComparable
@@ -86,7 +87,8 @@ public class Djikstra : PathfindingAlgorithm
             if (openList.Count <= 0)
             {
                 return null;
-                break;
+                // break;
+                // ^ works for corners but breaks with walls
             }
 
             openList.Sort();                          
@@ -96,6 +98,68 @@ public class Djikstra : PathfindingAlgorithm
         do
         {
             if (null == currentNode) { break; } // safeguards against to path, will do what it can
+            path.Add(currentNode.idx);
+            currentNode = currentNode.previousNode;
+        }
+        while (currentNode != start);
+
+        return path;
+    }
+}
+
+public class D2 : PathfindingAlgorithm
+{
+    public List<Index> Pathfind(Node start, Node goal, Node[,] nodeMap)
+    {
+        // reset
+        openList.Clear();
+        closedList.Clear();
+        // openSet.Clear();
+        // closedSet.Clear();
+        foreach (Node n in nodeMap)
+        {
+            n.previousNode = null;
+            n.CalculateH(goal);
+        }
+        currentNode = start;
+        currentNode.g = 0;
+        openList.Add(currentNode);
+        openSet.Add(currentNode);        
+
+        do
+        {
+            currentNode = openList[0];
+            openList.Remove(currentNode);
+            openSet.Remove(currentNode);
+            closedList.Add(currentNode);
+            closedSet.Add(currentNode);
+
+            foreach (Node n in currentNode.nextNodes)
+            {
+                float dist = currentNode.g + currentNode.traversalCost;
+                if (dist < n.g)
+                {
+                    n.g = dist;
+                    n.previousNode = currentNode;
+                }
+                if (!openSet.Contains(n) && !closedSet.Contains(n))
+                {                    
+                    openList.Add(n);
+                    openSet.Add(n);
+                }
+            }
+            openList.Sort();
+        }
+        while (openList.Count > 0 && currentNode != goal);
+
+        List<Index> path = new List<Index>();
+        do
+        {
+            if (null == currentNode)
+            {
+                Debug.Log("nl");
+                break;
+            } // safeguards against no path, will do what it can
             path.Add(currentNode.idx);
             currentNode = currentNode.previousNode;
         }
@@ -122,4 +186,5 @@ public abstract class PathfindingAlgorithm
         closedSet = new HashSet<Node>();
     }
 }
+
 

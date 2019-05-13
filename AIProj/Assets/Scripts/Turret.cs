@@ -50,7 +50,7 @@ public class Turret : MonoBehaviour, IDamageable
         if(elapsedTime >= shotTime)
         {
             elapsedTime = 0f;
-            bulletManager.AllocateBullet(transform.position, target, BulletManager.BulletType.turret);
+            bulletManager.AllocateBullet(pos, target, BulletManager.BulletType.turret);
         }
     }
 
