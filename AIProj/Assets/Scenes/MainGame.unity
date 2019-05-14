@@ -297,8 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d64f3b468eacde64d8e1b29966c12448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  width: 50
+  height: 50
   basePrefab: {fileID: 1680596913416788, guid: daf4eb467120ef44181c3c4a334654f1, type: 2}
   wallTraversalCost: 100000
   groundColor: {r: 1, g: 1, b: 1, a: 1}
