@@ -15,6 +15,11 @@ namespace Alexi.Jobs
         {
             [ReadOnly]
             public NativeArray<Node> nodes;
+
+            public void Execute(int i)
+            {
+
+            }
         }
 
     }

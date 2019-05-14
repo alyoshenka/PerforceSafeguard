@@ -119,8 +119,9 @@ namespace Alexi.Jobs
                 }
                 openList.Sort();
             }
-            while (openList.Count > 0 && currentNode != goal);
+            while (openList.Count > 0 /*&& currentNode != goal*/);
 
+            /*
             if (goal != currentNode) { return null; }
 
             List<Index> path = new List<Index>();
@@ -131,8 +132,10 @@ namespace Alexi.Jobs
                 currentNode = currentNode.previousNode;
             }
             while (currentNode != start);
+            */
 
-            return path;
+            // return path;
+            return null;
         }
     }
 
