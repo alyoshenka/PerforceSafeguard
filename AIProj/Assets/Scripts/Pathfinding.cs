@@ -19,7 +19,6 @@ public class Node : IComparable
         nextNodes = new List<Node>();
         g = h = f = Int32.MaxValue;
         traversalCost = cost;
-
         idx = _idx;
     }
 
@@ -109,17 +108,19 @@ public class Djikstra : PathfindingAlgorithm
 
 public class D2 : PathfindingAlgorithm
 {
+
     public List<Index> Pathfind(Node start, Node goal, Node[,] nodeMap)
     {
         // reset
         openList.Clear();
         closedList.Clear();
-        // openSet.Clear();
-        // closedSet.Clear();
+        openSet.Clear();
+        closedSet.Clear();
         foreach (Node n in nodeMap)
         {
             n.previousNode = null;
-            n.CalculateH(goal);
+            // n.CalculateH(goal);
+            n.g = Int32.MaxValue;
         }
         currentNode = start;
         currentNode.g = 0;
@@ -152,14 +153,12 @@ public class D2 : PathfindingAlgorithm
         }
         while (openList.Count > 0 && currentNode != goal);
 
+        if(goal != currentNode) { return null; }
+
         List<Index> path = new List<Index>();
         do
         {
-            if (null == currentNode)
-            {
-                Debug.Log("nl");
-                break;
-            } // safeguards against no path, will do what it can
+            if (null == currentNode) { Debug.Log(path.Count); return null; } // safeguards against no path, will do what it can
             path.Add(currentNode.idx);
             currentNode = currentNode.previousNode;
         }

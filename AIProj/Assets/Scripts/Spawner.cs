@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         spawnPos = transform.position;
-        spawnPos.y = 0; // change
+        spawnPos.y = 1; 
         elapsedTime = Random.Range(0f, 1f);
         spawns = 0;
     }
@@ -27,13 +27,11 @@ public class Spawner : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
         if(spawns < maxSpawns && elapsedTime >= spawnTime) { SpawnEnemy(); }
-        if(null == path) { Debug.Log("null path in update"); }
     }
 
     public void SetValues(List<Index> _path)
     {
         path = _path;
-        if (null == path) { Debug.LogError("null path at setvals"); }
     }
 
     void SpawnEnemy()
@@ -41,11 +39,7 @@ public class Spawner : MonoBehaviour
         elapsedTime = 0f;
         spawns++;
 
-        if (null == path)
-        {
-            Debug.LogError("null path");
-            return;
-        }       
+        if (null == path) { return; }      
 
         GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
         Enemy e = obj.GetComponent<Enemy>();

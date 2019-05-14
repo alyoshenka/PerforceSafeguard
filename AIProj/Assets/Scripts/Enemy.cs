@@ -31,6 +31,9 @@ public class Enemy : HostileAgent
         path = _path;
         pathIdx = path.Count - 1;
         Destination = MapGenerator.tiles[path[pathIdx].y, path[pathIdx--].x].transform;
+        Vector3 adjust = Destination.position;
+        adjust.y = 1;
+        Destination.position = adjust;
         Target = null;
     }
 

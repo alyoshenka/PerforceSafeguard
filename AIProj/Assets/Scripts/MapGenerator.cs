@@ -208,9 +208,7 @@ public class MapGenerator : MonoBehaviour
                 Tile.objs.TryGetValue(type, out obj);
                 if(null == obj) { continue; } // do not instantiate
 
-                pos = tile.transform.position;
-                // pos.y = -1;
-                obj = Instantiate(obj, pos, Quaternion.identity);
+                obj = Instantiate(obj, tile.transform.position, Quaternion.identity);
                              
                 switch (type) 
                 {
